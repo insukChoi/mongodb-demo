@@ -1,0 +1,6 @@
+mongodb:
+  uri: mongodb://localhost:27017
+  database: video
+  auth-source: admin
+  username: admin
+  password: 1234

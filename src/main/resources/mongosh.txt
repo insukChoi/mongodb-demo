@@ -1,0 +1,43 @@
+show dbs
+
+db
+
+use video
+
+show collections
+
+db.tornado_collection.insertOne({
+    channel_type : "TESLA",
+    aid : "A123133911404",
+    payment_info : {
+        payment_method_type: "MONEY",
+        payment_action_type: "PAYMENT",
+        currency_type: "KRW",
+        total_amount: 7000
+    },
+    settlement_info : {
+        pg_fee_amount: 70
+    }
+})
+
+db.tornado_collection.find()
+
+db.tornado_collection.find({
+    "payment_info.payment_method_type" : "MONEY"
+})
+
+db.getCollectionInfos( {name: "tornado_collection"})
+db.tornado_collection.getIndexes()
+
+// create user
+use admin
+db.createUser(
+ {
+     user: "admin",
+     pwd: "1234",
+     roles: [
+           { role: "userAdminAnyDatabase", db: "admin" },
+           { role: "readWriteAnyDatabase", db: "admin" },
+           { role: "dbAdminAnyDatabase", db: "admin" }
+        ]
+ })

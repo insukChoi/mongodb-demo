@@ -1,0 +1,6 @@
+mongodb:
+  uri: mongodb://
+  database: video
+  auth-source: admin
+  username:
+  password:
