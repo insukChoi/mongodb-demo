@@ -7,6 +7,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestConstructor
 import org.springframework.test.context.TestConstructor.AutowireMode.ALL
 
+@Deprecated("실제 로컬DB 테스트")
 @SpringBootTest
 @ActiveProfiles("local")
 @TestConstructor(autowireMode = ALL)
