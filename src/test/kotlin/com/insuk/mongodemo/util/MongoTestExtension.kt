@@ -11,7 +11,9 @@ import org.testcontainers.utility.DockerImageName
 class MongoTestExtension : BeforeEachCallback {
 
     companion object {
-        private val mongoContainer = MongoDBContainer(DockerImageName.parse("mongo:4.0.10"))
+        private val mongoContainer = MongoDBContainer(
+            DockerImageName.parse("mongo:4.0.10")
+        )
 
         class Initializer : ApplicationContextInitializer<ConfigurableApplicationContext> {
             override fun initialize(applicationContext: ConfigurableApplicationContext) {

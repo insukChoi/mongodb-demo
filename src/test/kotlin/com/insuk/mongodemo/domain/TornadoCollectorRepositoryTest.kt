@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestConstructor
 import org.springframework.test.context.TestConstructor.AutowireMode.*
 import java.math.BigDecimal
@@ -20,6 +21,7 @@ import java.math.BigDecimal.valueOf
 @ActiveProfiles("test")
 @ExtendWith(MongoTestExtension::class)
 @TestConstructor(autowireMode = ALL)
+@ContextConfiguration(initializers = [MongoTestExtension.Companion.Initializer::class])
 internal class TornadoCollectorRepositoryTest(
     private val tornadoCollectorRepository: TornadoCollectorRepository
 ) {
@@ -38,13 +40,12 @@ internal class TornadoCollectorRepositoryTest(
         val findAll = tornadoCollectorRepository.findAll()
         findAll.size shouldBe 1
         findAll[0].id.shouldNotBeNull()
-        findAll[0].channelType shouldBe CHANNEL_TYPE
-        findAll[0].settlementInfo?.pgFeeAmount?.shouldBeEqualComparingTo(PG_FEE_AMOUNT)
+        findAll[0] shouldBe givenCollectorMock()
     }
 
     private fun givenCollectorMock() =
         TornadoCollector(
-            channelType = CHANNEL_TYPE,
+            channelType = "AMD",
             aid = "aid111",
             PaymentInfo(
                 paymentMethodType = "MONEY",
@@ -58,7 +59,6 @@ internal class TornadoCollectorRepositoryTest(
         )
 
     companion object {
-        private const val CHANNEL_TYPE = "QUATTRO"
         private val PG_FEE_AMOUNT = valueOf(0.1)
     }
 }
